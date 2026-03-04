@@ -14,11 +14,18 @@ struct HomeView: View {
     @State var stand: Int = 8
     
     
+    var mockActivities = [
+        Activity(id: 0, title: "Today steps", subtitle: "Goal 12,000", image: "figure.walk", tintColor: .green, amount: "9,812"),
+        Activity(id: 1, title: "Today steps", subtitle: "Goal 12,000", image: "figure.walk", tintColor: .red, amount: "812"),
+        Activity(id: 2, title: "Today steps", subtitle: "Goal 12,000", image: "figure.walk", tintColor: .blue, amount: "9,812"),
+        Activity(id: 3, title: "Today steps", subtitle: "Goal 12,000", image: "figure.run", tintColor: .purple, amount: "104,812")
+    ]
+    
     var body: some View {
         
         ScrollView(showsIndicators: false) {
             
-            VStack {
+            VStack(alignment: .leading) {
                 Text("Welcome")
                     .font(.largeTitle)
                     .padding()
@@ -81,6 +88,36 @@ struct HomeView: View {
                     Spacer()
                 }
                 .padding()
+                
+                HStack {
+                
+                    Text("Fitness Activity")
+                        .font(.title2)
+                    
+                    Spacer()
+                    
+                    Button {
+                        print("show more")
+                    } label: {
+                        Text("show more")
+                            .padding(10)
+                            .foregroundStyle(.white)
+                            .background(.blue)
+                            .cornerRadius(20)
+                        
+                    }
+                }
+                .padding(.horizontal)
+                
+                LazyVGrid(columns: Array(repeating: GridItem(spacing: 20), count: 2)) {
+                    ForEach(mockActivities, id: \.id) { activity in
+                        ActivityCard(activity: activity)
+                        
+                    }
+                    
+                    
+                }
+                .padding(.horizontal)
             }
         }
     }
